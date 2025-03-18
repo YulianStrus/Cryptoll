@@ -1,0 +1,138 @@
+$primary-100: #B982FF;
+
+$accented-gradient: linear-gradient(239deg, #18C8FF 0%, #933FFE 100%);
+
+$bg: #0B0B0F;
+
+$gray-100: #212529;
+$gray-80: #495057;
+$gray-60: #6E7584;
+$gray-50: #ADB5BD;
+$gray-40: #CED4DA;
+$gray-30: #E9ECEF;
+$gray-20: #f1f3f5;
+$gray-10: #F8F9FA;
+$gray-0: #FFFFFF;
+
+$error: #991D21;
+$info: #4F75FF;
+$warning: #FF9F4C;
+$success: #7EC136;
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul,
+ol {
+    list-style: none;
+    padding-left: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.headline1,
+.headline2,
+.headline3 {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    flex-direction: column;
+}
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(40px, 6.64vw, 85px);
+    line-height: 130%;
+}
+
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(20px, 3.13vw, 40px);
+    line-height: 130%;
+}
+
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(16px, 2.5vw, 32px);
+    line-height: 130%;
+}
+
+h4 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(14px, 2.19vw, 28px);
+    line-height: 120%;
+}
+
+h5 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(10px, 1.56vw, 20px);
+    line-height: 140%;
+}
+
+.button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(10px, 1.25vw, 16px);
+    line-height: 140%;
+}
+
+.text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: clamp(10px, 1.25vw, 16px);
+    line-height: 140%;
+}
+
+.bold {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(8px, 1.09vw, 14px);
+    line-height: 140%;
+}
+
+.small {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(6px, 0.94vw, 12px);
+    line-height: 140%;
+}

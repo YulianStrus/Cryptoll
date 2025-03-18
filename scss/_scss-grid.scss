@@ -1,0 +1,44 @@
+@use 'sass:math';
+$margin: 130px;
+$columns: 12;
+$column-width: 80px;
+$gutter: 20px;
+$side-padding: 20px;
+$header-padding: 26px;
+
+.container {
+    max-width: calc(#{$columns * $column-width} + #{$gutter * ($columns - 1)} + #{$side-padding * 2});
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $side-padding;
+    padding-right: $side-padding;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -#{math.div($gutter, 2)};
+    margin-right: -#{math.div($gutter, 2)};
+}
+
+.col {
+    padding-left: calc(#{math.div($gutter, 2)});
+    padding-right: calc(#{math.div($gutter, 2)});
+    flex-grow: 1;
+}
+
+.full-width {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    margin-bottom: $margin;
+}
+
+section{
+    margin-bottom: 200px;
+}
