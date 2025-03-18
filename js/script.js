@@ -56,8 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
             card.dataset.index = cardIndex;
             wrapper.appendChild(card);
         }
-
-        // Оновлення тексту з першої картки (яка є активною)
         updateText(index);
     }
 
