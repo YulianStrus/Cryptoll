@@ -310,7 +310,6 @@ main .main__section {
   align-items: center;
 }
 main .main__section .main__container {
-  height: 420px;
   display: flex;
   width: 100%;
   gap: 120px;
@@ -322,7 +321,7 @@ main .main__section .left-column {
   font-size: 24px;
   display: flex;
   align-items: left;
-  justify-content: center;
+  justify-content: flex-start;
 }
 main .main__section .right-column {
   width: 50%;
@@ -334,11 +333,6 @@ main .main__section .right-column {
   align-items: center;
   overflow-y: auto;
 }
-main .main__section .right-column .cards-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
 main .main__section .right-column .cards-wrapper .card {
   height: 98px;
   margin-bottom: 50px;
@@ -348,9 +342,15 @@ main .main__section .right-column .cards-wrapper .card {
   border-radius: 25px;
   transition: opacity 0.5s, transform 0.5s;
 }
-main .main__section .right-column .cards-wrapper .scroll-out {
-  transform: translateY(-100%);
-  opacity: 0;
+main .main__section .right-column .sticky-block {
+  position: sticky;
+  top: 50%;
+  transform: translateY(-50%);
+}
+main .main__section .right-column .cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 main .main__section .star {
   position: absolute;
