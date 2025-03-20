@@ -308,6 +308,17 @@ main .main__section {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+main .main__section__container {
+  max-width: 500px;
+  margin: 0 auto 100px auto;
+  text-align: center;
+  display: block;
+  color: #fff;
+}
+main .main__section__container h2 {
+  margin-bottom: 24px;
 }
 main .main__section .main__container {
   display: flex;

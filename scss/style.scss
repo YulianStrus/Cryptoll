@@ -188,7 +188,19 @@ main {
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
 
+        &__container {
+            max-width: 500px;
+            margin: 0 auto 100px auto;
+            text-align: center;
+            display: block;
+            color: #fff;
+
+            h2{
+                margin-bottom: 24px;
+            }
+        }
 
         .main__container {
             display: flex;
