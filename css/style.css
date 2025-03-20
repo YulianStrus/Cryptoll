@@ -321,6 +321,7 @@ main .main__section__container h2 {
   margin-bottom: 24px;
 }
 main .main__section .main__container {
+  height: 430px;
   display: flex;
   width: 100%;
   gap: 120px;
@@ -332,17 +333,18 @@ main .main__section .left-column {
   font-size: 24px;
   display: flex;
   align-items: left;
-  justify-content: flex-start;
+  justify-content: center;
 }
 main .main__section .right-column {
   width: 50%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto;
 }
 main .main__section .right-column .cards-wrapper .card {
   height: 98px;
