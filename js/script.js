@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         card.textContent = data[cardIndex].title;
         card.dataset.index = cardIndex;
         card.style.transform = `translateY(${i * 1}px)`;
-        card.style.transition = "transform 0.5s ease-in-out";
+        card.style.transition = "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)";
         wrapper.appendChild(card);
       }
       updateText(index);
