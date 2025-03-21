@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   
 document.addEventListener("DOMContentLoaded", function () {
-  const section = document.querySelector(".main__section--services");
+  const section = document.querySelector(".main__container");
   const wrapper = document.querySelector(".cards-wrapper");
   const title = document.getElementById("active-title");
   const text = document.getElementById("active-text");
@@ -43,55 +43,59 @@ document.addEventListener("DOMContentLoaded", function () {
         {title:"7.Lörem ipsum dorade boktig till geosylig postmodern.", text:"7.Lörem ipsum häsat promotiv sedan depatologi tenes.", text1:"7.Lörem ipsum sosm niliga syntris."}
     ];
 
-    let index = 0;
-    let isScrollingCards = false;
-    let startScrollPos = 0;
-    
-    function renderCards() {
-        wrapper.innerHTML = "";
-        for (let i = 0; i < 3; i++) {
-            const cardIndex = (index + i) % data.length;
-            if (cardIndex < data.length) {
-                const card = document.createElement("div");
-                card.classList.add("card");
-                card.textContent = data[cardIndex].title;
-                card.dataset.index = cardIndex;
-                wrapper.appendChild(card);
-            }
-        }
-        updateText(index);
-    }
 
+    let index = 0;
+    let maxIndex = data.length - 3;
+  
+    function renderCards() {
+      wrapper.innerHTML = "";
+      for (let i = 0; i < 3; i++) {
+        const cardIndex = (index + i) % data.length;
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.textContent = data[cardIndex].title;
+        card.dataset.index = cardIndex;
+        card.style.transform = `translateY(${i * 1}px)`;
+        card.style.transition = "transform 0.5s ease-in-out";
+        wrapper.appendChild(card);
+      }
+      updateText(index);
+    }
+  
     function updateText(i) {
-        title.textContent = data[i].text;
-        text.textContent = data[i].text1;
+      title.textContent = data[i].text;
+      text.textContent = data[i].text1;
     }
     
     function handleScroll(event) {
-        if (!isScrollingCards) {
-            if (window.scrollY >= section.offsetTop - 50) {
-                isScrollingCards = true;
-                startScrollPos = window.scrollY;
-            } else {
-                return;
-            }
-        }
-
-        event.preventDefault();
-        let delta = event.deltaY;
-        if (delta > 0) {
-            index = (index + 1) % data.length;
-        } else {
-            index = (index - 1 + data.length) % data.length;
-        }
+      if (!section.contains(event.target)) return;
+      
+      let delta = event.deltaY;
+      let atEnd = index >= maxIndex && delta > 0;
+      let atStart = index <= 0 && delta < 0;
+      
+      if (atEnd || atStart) {
+        section.removeEventListener("wheel", handleScroll);
+        return;
+      }
+      
+      event.preventDefault();
+      
+      if (delta > 0 && index < maxIndex) {
+        index++;
+        wrapper.style.transform = "translateY(-120px)";
+      } else if (delta < 0 && index > 0) {
+        index--;
+        wrapper.style.transform = "translateY(120px)";
+      }
+  
+      setTimeout(() => {
+        wrapper.style.transition = "none";
+        wrapper.style.transform = "translateY(0)";
         renderCards();
-
-        if (index === data.length - 3) {
-            isScrollingCards = false;
-            window.removeEventListener("wheel", handleScroll);
-        }
+      }, 500);
     }
     
-    window.addEventListener("wheel", handleScroll, { passive: false });
+    section.addEventListener("wheel", handleScroll, { passive: false });
     renderCards();
-});
+  });
