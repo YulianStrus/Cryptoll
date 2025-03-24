@@ -1,3 +1,4 @@
+@charset "UTF-8";
 *,
 *::before,
 *::after {
@@ -305,48 +306,51 @@ main .token-sale__block:nth-child(even) {
 }
 main .main__section {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-main .main__section__container {
-  max-width: 500px;
-  margin: 0 auto 100px auto;
-  text-align: center;
-  display: block;
+  padding: 50px 0;
   color: #fff;
-}
-main .main__section__container h2 {
-  margin-bottom: 24px;
-}
-main .main__section .main__container {
-  height: 430px;
-  display: flex;
+  height: 100vh;
   width: 100%;
-  gap: 120px;
 }
-main .main__section .left-column {
-  flex-direction: column;
-  width: 50%;
-  color: white;
-  font-size: 24px;
+main .main__section .main__section__container {
   display: flex;
-  align-items: left;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
 }
-main .main__section .right-column {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+main .main__section .title {
+  display: block;
+  text-align: center;
+  margin: 0 auto 100px auto;
+}
+main .left-column {
+  flex: 1;
+  position: relative;
+}
+main .sticky-content {
+  position: sticky;
+  top: 30vh;
+  text-align: left;
+}
+main .right-column {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 }
-main .main__section .right-column .cards-wrapper .card {
+main .cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 360px;
+  /* 3 картки по 120px */
+  overflow: auto;
+  position: relative;
+}
+main .cards-wrapper::-webkit-scrollbar {
+  display: none;
+}
+main .card {
   height: 98px;
   margin-bottom: 50px;
   background: radial-gradient(65.97% 92.77% at -13.3% -20.61%, rgba(62, 238, 227, 0.5) 0%, rgba(62, 69, 238, 0) 100%), radial-gradient(144.76% 629.53% at -6.71% 100%, rgba(223, 29, 255, 0.35) 0%, rgba(72, 205, 255, 0) 100%), linear-gradient(277.94deg, rgba(41, 46, 75, 0.225) 0%, rgba(37, 40, 58, 0.105) 100%, rgba(41, 46, 75, 0.105) 100%);
@@ -355,26 +359,16 @@ main .main__section .right-column .cards-wrapper .card {
   border-radius: 25px;
   transition: opacity 0.5s, transform 0.5s;
 }
-main .main__section .right-column .sticky-block {
-  position: sticky;
-  top: 50%;
-  transform: translateY(-50%);
-}
-main .main__section .right-column .cards-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-main .main__section .star {
+main .star {
   position: absolute;
 }
-main .main__section .star--1 {
+main .star--1 {
   left: 5.83%;
   right: 83.14%;
   top: 115.44%;
   bottom: -158.34%;
 }
-main .main__section .star--2 {
+main .star--2 {
   left: 0.78%;
   right: 92.57%;
   top: 105%;
