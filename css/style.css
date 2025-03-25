@@ -478,24 +478,31 @@ main::after {
   main .token-sale__block {
     height: auto;
   }
-  main .main__section .main__container {
+  main .main__section .main__section__container {
     gap: 24px;
     flex-direction: column;
   }
-  main .main__section .main__container .left-column,
-  main .main__section .main__container .right-column {
+  main .main__section .main__section__container .left-column,
+  main .main__section .main__section__container .right-column {
     color: #FFFFFF;
     width: 100%;
     align-items: center;
   }
-  main .main__section .main__container .left-column .cards-wrapper .cards,
-  main .main__section .main__container .right-column .cards-wrapper .cards {
+  main .main__section .main__section__container .left-column .cards-wrapper .cards,
+  main .main__section .main__section__container .right-column .cards-wrapper .cards {
     margin-bottom: 20px;
   }
-  main .main__section .main__container .right-column .cards-wrapper {
-    height: 360px;
+  main .main__section .main__section__container .left-column {
+    flex: 0;
   }
-  main .main__section .main__container .right-column .cards-wrapper .card {
+  main .main__section .main__section__container .title {
+    height: 100%;
+  }
+  main .main__section .main__section__container .right-column .cards-wrapper {
+    overflow-y: auto;
+    height: 760px;
+  }
+  main .main__section .main__section__container .right-column .cards-wrapper .card {
     margin-bottom: 20px;
   }
   main .main__section--services {

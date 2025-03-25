@@ -397,7 +397,7 @@ main {
         }
 
         .main__section {
-            .main__container {
+            .main__section__container {
                 gap: 24px;
                 flex-direction: column;
 
@@ -414,9 +414,19 @@ main {
                     }
                 }
 
+                .left-column{
+                    
+                    flex:0;
+                }
+
+                .title{
+                    height: 100%;
+                }
+
                 .right-column {
                     .cards-wrapper {
-                        height: 360px;
+                        overflow-y: auto;
+                        height: 760px;
 
                         .card {
                             margin-bottom: 20px;
