@@ -316,6 +316,7 @@ main .main__section .main__section__container {
   justify-content: space-between;
   width: 100%;
   margin: 0 auto;
+  align-items: center;
 }
 main .main__section .title {
   display: block;

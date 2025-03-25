@@ -53,26 +53,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function handleScroll() {
-    const sectionRect = section.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    const startSticky = windowHeight / 3;
-    const endSticky = sectionRect.height - windowHeight / 3;
-    
-    if (sectionRect.top <= startSticky && sectionRect.bottom >= endSticky) {
-      section.classList.add("sticky");
-    } else {
-      section.classList.remove("sticky");
-    }
-    
-    let visibleIndex = Math.floor((windowHeight / 3 - sectionRect.top) / 100);
+    const scrollTop = cardsWrapper.scrollTop;
+    const wrapperHeight = cardsWrapper.clientHeight;
+    const totalHeight = cardsWrapper.scrollHeight;
+
+    let visibleIndex = Math.floor((scrollTop / (totalHeight - wrapperHeight)) * (data.length - 1));
     visibleIndex = Math.max(0, Math.min(visibleIndex, data.length - 1));
-    
+
     if (visibleIndex !== currentIndex) {
       currentIndex = visibleIndex;
       updateLeftColumn(currentIndex);
     }
   }
 
-  window.addEventListener("scroll", handleScroll);
+  cardsWrapper.addEventListener("scroll", handleScroll); // Додаємо слухач події скролу
   updateLeftColumn(0);
 });
