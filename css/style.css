@@ -328,7 +328,7 @@ main .left-column {
 }
 main .sticky-content {
   position: sticky;
-  top: 30vh;
+  top: 100vh;
   text-align: left;
 }
 main .right-column {
