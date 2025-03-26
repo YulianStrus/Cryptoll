@@ -254,7 +254,9 @@ main {
         transition: opacity 0.5s, transform 0.5s;
     }
 
-
+    .card:last-child {
+        margin-bottom: 0;
+      }
 
     .star {
         position: absolute;

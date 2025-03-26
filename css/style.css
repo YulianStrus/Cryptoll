@@ -361,6 +361,9 @@ main .card {
   border-radius: 25px;
   transition: opacity 0.5s, transform 0.5s;
 }
+main .card:last-child {
+  margin-bottom: 0;
+}
 main .star {
   position: absolute;
 }
