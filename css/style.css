@@ -1,4 +1,3 @@
-@charset "UTF-8";
 *,
 *::before,
 *::after {
@@ -343,16 +342,18 @@ main .cards-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 360px;
-  /* 3 картки по 120px */
   overflow: auto;
   position: relative;
+  height: 330px;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
 }
 main .cards-wrapper::-webkit-scrollbar {
   display: none;
 }
 main .card {
-  height: 98px;
+  height: 100px;
+  scroll-snap-align: start;
   margin-bottom: 50px;
   background: radial-gradient(65.97% 92.77% at -13.3% -20.61%, rgba(62, 238, 227, 0.5) 0%, rgba(62, 69, 238, 0) 100%), radial-gradient(144.76% 629.53% at -6.71% 100%, rgba(223, 29, 255, 0.35) 0%, rgba(72, 205, 255, 0) 100%), linear-gradient(277.94deg, rgba(41, 46, 75, 0.225) 0%, rgba(37, 40, 58, 0.105) 100%, rgba(41, 46, 75, 0.105) 100%);
   color: white;
