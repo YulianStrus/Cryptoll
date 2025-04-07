@@ -46,6 +46,38 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   let currentIndex = 0;
+  let autoScrollInterval = null;
+  let hasScrolledToEnd = false;
+
+  function startAutoScroll() {
+    if (autoScrollInterval || hasScrolledToEnd) return;
+
+    autoScrollInterval = setInterval(() => {
+      const scrollStep = 1;
+      const atBottom = cardsWrapper.scrollTop + cardsWrapper.clientHeight >= cardsWrapper.scrollHeight;
+
+      if (!atBottom) {
+        cardsWrapper.scrollBy(0, scrollStep);
+      } else {
+        clearInterval(autoScrollInterval);
+        autoScrollInterval = null;
+        hasScrolledToEnd = true;
+      }
+    }, 2000);
+  }
+
+  // Перевірка видимості секції
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        startAutoScroll();
+      }
+    });
+  }, { threshold: 0.6 }); // секція має бути видима хоча б на 60%
+
+  if (section) {
+    observer.observe(section);
+  }
 
   function updateLeftColumn(index) {
     title.innerText = data[index].text;
