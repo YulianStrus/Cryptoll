@@ -415,7 +415,7 @@ main .hero__bottom {
 }
 main .hero__bottom h3 {
   margin: 0 auto;
-  font-size: 85px;
+  font-size: clamp(42px, 5vw, 85px);
   font-weight: 900;
   letter-spacing: 0;
 }
@@ -539,7 +539,7 @@ main .hero .ellipse-purple {
   width: 675px;
   height: 314px;
   top: 90px;
-  left: 202px;
+  right: 0px;
   background: #7000FF;
   filter: blur(200px);
   z-index: -2;
@@ -549,7 +549,7 @@ main .hero .ellipse-pink {
   width: 475px;
   height: 314px;
   top: 90px;
-  left: 477px;
+  right: 0px;
   background: rgba(255, 0, 200, 0.3764705882);
   filter: blur(100px);
   z-index: -2;

@@ -299,7 +299,7 @@ main {
 
             h3 {
                 margin: 0 auto;
-                font-size: 85px;
+                font-size: clamp(42px, 5vw, 85px);
                 font-weight: 900;
                 letter-spacing: 0;
             }
@@ -437,7 +437,7 @@ main {
             width: 675px;
             height: 314px;
             top: 90px;
-            left: 202px;
+            right: 0px;
             background: #7000FF;
             filter: blur(200px);
             z-index: -2;
@@ -448,7 +448,7 @@ main {
             width: 475px;
             height: 314px;
             top: 90px;
-            left: 477px;
+            right: 0px;
             background: #ff00c860;
             filter: blur(100px);
             z-index: -2;
