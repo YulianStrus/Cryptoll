@@ -28,111 +28,45 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const section = document.querySelector(".main__section");
+  gsap.registerPlugin(ScrollTrigger);
+
+  const cardsInner = document.querySelector(".cards-inner");
+  const wrapper = document.querySelector(".cards-wrapper");
+  const scrollRow = document.querySelector(".scrolling-row");
   const title = document.querySelector("#active-title");
   const text = document.querySelector("#active-text");
-  const cardsWrapper = document.querySelector(".cards-wrapper");
-  const cards = document.querySelectorAll(".card");
 
   const data = [
-    {
-      title: "1.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "1.Lörem ipsum häsat promotiv sedan depatologi tenes.",
-      text1: "1.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "2.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "2.Lörem ipsum häsat promotiv sedan depatologi tenes.",
-      text1: "2.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "3.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "3.Lörem ipsum häsat promotiv sedan depatologi tenes.",
-      text1: "3.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "4.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "4.Lörem ipsum häsat promotiv sedan depatologi tenes.",
-      text1: "4.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "5.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "5.Lörem ipsum häsat promotiv sedan depatologi tenes.",
-      text1: "5.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "6.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "6.Lörem ipsum häsat promotiv sedan depatologi tenes.",
-      text1: "6.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "7.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "7.Lörem ipsum häsat promotiv sedan depatologi tenes.",
-      text1: "7.Lörem ipsum sosm niliga syntris.",
-    },
+    { title: "1.Lörem ipsum dorade boktig till geosylig postmodern.", text: "1.Lörem ipsum sosm niliga syntris." },
+    { title: "2.Lörem ipsum dorade boktig till geosylig postmodern.", text: "2.Lörem ipsum sosm niliga syntris." },
+    { title: "3.Lörem ipsum dorade boktig till geosylig postmodern.", text: "3.Lörem ipsum sosm niliga syntris." },
+    { title: "4.Lörem ipsum dorade boktig till geosylig postmodern.", text: "4.Lörem ipsum sosm niliga syntris." },
+    { title: "5.Lörem ipsum dorade boktig till geosylig postmodern.", text: "5.Lörem ipsum sosm niliga syntris." },
+    { title: "6.Lörem ipsum dorade boktig till geosylig postmodern.", text: "6.Lörem ipsum sosm niliga syntris." },
+    { title: "7.Lörem ipsum dorade boktig till geosylig postmodern.", text: "7.Lörem ipsum sosm niliga syntris." }
   ];
 
-  let currentIndex = 0;
-  let autoScrollInterval = null;
-  let hasScrolledToEnd = false;
+  const totalHeight = cardsInner.scrollHeight;
+  const visibleHeight = wrapper.offsetHeight;
+  const scrollableDistance = totalHeight - visibleHeight;
 
-  function startAutoScroll() {
-    if (autoScrollInterval || hasScrolledToEnd) return;
-
-    autoScrollInterval = setInterval(() => {
-      const scrollStep = 1;
-      const atBottom =
-        cardsWrapper.scrollTop + cardsWrapper.clientHeight >=
-        cardsWrapper.scrollHeight;
-
-      if (!atBottom) {
-        cardsWrapper.scrollBy(0, scrollStep);
-      } else {
-        clearInterval(autoScrollInterval);
-        autoScrollInterval = null;
-        hasScrolledToEnd = true;
+  gsap.to(cardsInner, {
+    y: -scrollableDistance,
+    ease: "none",
+    scrollTrigger: {
+      trigger: scrollRow,
+      start: "top top",
+      end: `+=${scrollableDistance + window.innerHeight - 100}`,
+      scrub: true,
+      pin: scrollRow,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        const index = Math.min(data.length - 1, Math.floor(progress * data.length));
+        title.innerText = data[index].title;
+        text.innerText = data[index].text;
       }
-    }, 2000);
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          startAutoScroll();
-        }
-      });
-    },
-    { threshold: 0.6 }
-  );
-
-  if (section) {
-    observer.observe(section);
-  }
-
-  function updateLeftColumn(index) {
-    title.innerText = data[index].text;
-    text.innerText = data[index].text1;
-  }
-
-  function handleScroll() {
-    const scrollTop = cardsWrapper.scrollTop;
-    const wrapperHeight = cardsWrapper.clientHeight;
-    const totalHeight = cardsWrapper.scrollHeight;
-
-    let visibleIndex = Math.floor(
-      (scrollTop / (totalHeight - wrapperHeight)) * (data.length - 1)
-    );
-    visibleIndex = Math.max(0, Math.min(visibleIndex, data.length - 1));
-
-    if (visibleIndex !== currentIndex) {
-      currentIndex = visibleIndex;
-      updateLeftColumn(currentIndex);
     }
-  }
-
-  cardsWrapper.addEventListener("scroll", handleScroll); // Додаємо слухач події скролу
-  updateLeftColumn(0);
+  });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
