@@ -701,7 +701,14 @@ main .cards-wrapper {
   align-items: center;
   overflow: auto;
   overflow-y: auto;
+  position: sticky;
+  top: 100px;
+  height: 400px;
+  overflow: hidden;
   scroll-snap-type: y mandatory;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: sticky;
   top: 100px;
   height: 400px;
@@ -710,6 +717,8 @@ main .cards-wrapper {
 main .cards-inner {
   display: flex;
   flex-direction: column;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
 }
 main .cards-wrapper::-webkit-scrollbar {
   display: none;
@@ -717,12 +726,19 @@ main .cards-wrapper::-webkit-scrollbar {
 main .card {
   height: 100px;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   margin-bottom: 50px;
   background: radial-gradient(65.97% 92.77% at -13.3% -20.61%, rgba(62, 238, 227, 0.5) 0%, rgba(62, 69, 238, 0) 100%), radial-gradient(144.76% 629.53% at -6.71% 100%, rgba(223, 29, 255, 0.35) 0%, rgba(72, 205, 255, 0) 100%), linear-gradient(277.94deg, rgba(41, 46, 75, 0.225) 0%, rgba(37, 40, 58, 0.105) 100%, rgba(41, 46, 75, 0.105) 100%);
   color: white;
   padding: 27px 63px;
   border-radius: 25px;
   transition: opacity 0.5s, transform 0.5s;
+}
+main .card--empty {
+  background: none;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
 }
 main .card:last-child {
   margin-bottom: 0;
