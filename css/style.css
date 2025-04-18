@@ -696,15 +696,7 @@ main .right-column {
   overflow: hidden;
 }
 main .cards-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: auto;
   overflow-y: auto;
-  position: sticky;
-  top: 100px;
-  height: 400px;
-  overflow: hidden;
   scroll-snap-type: y mandatory;
   display: flex;
   flex-direction: column;
@@ -733,12 +725,6 @@ main .card {
   padding: 27px 63px;
   border-radius: 25px;
   transition: opacity 0.5s, transform 0.5s;
-}
-main .card--empty {
-  background: none;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
 }
 main .card:last-child {
   margin-bottom: 0;

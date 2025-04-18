@@ -32,85 +32,225 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const cardsInner = document.querySelector(".cards-inner");
   const cards = document.querySelectorAll(".card");
-  const wrapper = document.querySelector(".cards-wrapper");
   const title = document.querySelector("#active-title");
   const text = document.querySelector("#active-text");
+  const scrollingRow = document.querySelector(".scrolling-row");
 
   const data = [
-      { title: "", text: "" },
-      { title: "1.Lörem ipsum dorade boktig till geosylig postmodern.", text: "1.Lörem ipsum sosm niliga syntris." },
-      { title: "2.Lörem ipsum dorade boktig till geosylig postmodern.", text: "2.Lörem ipsum sosm niliga syntris." },
-      { title: "3.Lörem ipsum dorade boktig till geosylig postmodern.", text: "3.Lörem ipsum sosm niliga syntris." },
-      { title: "4.Lörem ipsum dorade boktig till geosylig postmodern.", text: "4.Lörem ipsum sosm niliga syntris." },
-      { title: "5.Lörem ipsum dorade boktig till geosylig postmodern.", text: "5.Lörem ipsum sosm niliga syntris." },
-      { title: "6.Lörem ipsum dorade boktig till geosylig postmodern.", text: "6.Lörem ipsum sosm niliga syntris." },
-      { title: "7.Lörem ipsum dorade boktig till geosylig postmodern.", text: "7.Lörem ipsum sosm niliga syntris." },
-      { title: "", text: "" }
+    {
+      title: "1.Lörem ipsum dorade boktig till geosylig postmodern.",
+      text: "1.Lörem ipsum sosm niliga syntris.",
+    },
+    {
+      title: "2.Lörem ipsum dorade boktig till geosylig postmodern.",
+      text: "2.Lörem ipsum sosm niliga syntris.",
+    },
+    {
+      title: "3.Lörem ipsum dorade boktig till geosylig postmodern.",
+      text: "3.Lörem ipsum sosm niliga syntris.",
+    },
+    {
+      title: "4.Lörem ipsum dorade boktig till geosylig postmodern.",
+      text: "4.Lörem ipsum sosm niliga syntris.",
+    },
+    {
+      title: "5.Lörem ipsum dorade boktig till geosylig postmodern.",
+      text: "5.Lörem ipsum sosm niliga syntris.",
+    },
+    {
+      title: "6.Lörem ipsum dorade boktig till geosylig postmodern.",
+      text: "6.Lörem ipsum sosm niliga syntris.",
+    },
+    {
+      title: "7.Lörem ipsum dorade boktig till geosylig postmodern.",
+      text: "7.Lörem ipsum sosm niliga syntris.",
+    },
   ];
 
   const cardHeight = 150;
-  const totalCards = cards.length;
-  const visibleCards = 3;
   let currentIndex = 0;
 
-  function updateCardsPosition(index) {
-      const offset = -index * cardHeight;
-      gsap.to(cardsInner, {
-          y: offset,
-          duration: 0.5,
-          ease: "power2.out"
-      });
-      cards.forEach((card, i) => {
-          const isVisible = i >= index && i < index + visibleCards;
-          const isCenter = i === index + 1;
-          const isEmpty = card.classList.contains('card--empty');
-          
-          if (!isEmpty) {
-              card.classList.toggle('active', isCenter);
-              card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
-          }
-      });
-      const activeCard = cards[index + 1];
-      if (activeCard && !activeCard.classList.contains('card--empty')) {
-          gsap.to([title, text], {
-              opacity: 0,
-              duration: 0.2,
-              onComplete: () => {
-                  title.textContent = data[index + 1].title;
-                  text.textContent = data[index + 1].text;
-                  gsap.to([title, text], {
-                      opacity: 1,
-                      duration: 0.2
-                  });
-              }
-          });
-      }
+  function setInitialCards() {
+    cardsInner.style.transform = "translateY(0px)";
+    cards.forEach((card, i) => {
+      card.classList.toggle("active", i === 0);
+      card.style.opacity = i === 0 ? 1 : i < 3 ? 0.7 : 0.3;
+    });
+    title.textContent = data[0].title;
+    text.textContent = data[0].text;
   }
+  setInitialCards();
+
+  function updateCardsAfterPin(index) {
+    cards.forEach((card, i) => {
+      const isVisible = i >= 4 && i <= 6;
+      const isCenter = i === index;
+      card.classList.toggle("active", isCenter);
+      card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
+    });
+
+    gsap.to([title, text], {
+      opacity: 0,
+      duration: 0.2,
+      onComplete: () => {
+        title.textContent = data[index].title;
+        text.textContent = data[index].text;
+        gsap.to([title, text], {
+          opacity: 1,
+          duration: 0.2,
+        });
+      },
+    });
+  }
+
+  function updateCardsPosition(index) {
+    const offset = -index * cardHeight;
+    gsap.to(cardsInner, {
+      y: offset,
+      duration: 0.5,
+      ease: "power2.out",
+    });
+
+    cards.forEach((card, i) => {
+      const isVisible = Math.abs(i - index) <= 1;
+      const isCenter = i === index;
+      card.classList.toggle("active", isCenter);
+      card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
+    });
+
+    gsap.to([title, text], {
+      opacity: 0,
+      duration: 0.2,
+      onComplete: () => {
+        title.textContent = data[index].title;
+        text.textContent = data[index].text;
+        gsap.to([title, text], {
+          opacity: 1,
+          duration: 0.2,
+        });
+      },
+    });
+  }
+
+  let pinEnded = false;
+  let justUnpinned = false;
+  let lastProgress = 0;
+
   ScrollTrigger.create({
-      trigger: ".scrolling-row",
-      start: "top top",
-      end: `+=${(totalCards - visibleCards) * cardHeight}`,
-      pin: true,
-      onUpdate: (self) => {
-          const newIndex = Math.round(self.progress * (totalCards - visibleCards));
-          if (newIndex !== currentIndex && newIndex >= 0 && newIndex <= totalCards - visibleCards) {
-              currentIndex = newIndex;
-              updateCardsPosition(currentIndex);
-          }
+    trigger: scrollingRow,
+    start: "top top",
+    end: `+=${cardHeight * 5}`,
+    pin: true,
+    scrub: 1,
+    onUpdate: (self) => {
+      if (self.progress < 1) {
+        pinEnded = false;
+        const newIndex = Math.min(4, Math.floor(self.progress * 5));
+        if (newIndex !== currentIndex && newIndex >= 0 && newIndex <= 4) {
+          currentIndex = newIndex;
+          updateCardsPosition(currentIndex);
+        }
       }
-  });
-  cards.forEach((card, index) => {
-      if (!card.classList.contains('card--empty')) {
-          card.addEventListener('click', () => {
-              const targetIndex = Math.max(0, Math.min(index - 1, totalCards - visibleCards));
-              if (targetIndex !== currentIndex) {
-                  currentIndex = targetIndex;
-                  updateCardsPosition(currentIndex);
-              }
+    },
+    onLeave: () => {
+      pinEnded = true;
+      justUnpinned = true;
+      currentIndex = 4;
+      lastProgress = 0;
+
+      gsap.to(cardsInner, {
+        y: -cardHeight * 4,
+        duration: 0.1,
+        onComplete: () => {
+          updateCardsAfterPin(4);
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              justUnpinned = false;
+            });
           });
-      }
+        },
+      });
+    },
+    onEnterBack: () => {
+      pinEnded = false;
+    },
   });
-  updateCardsPosition(0);
+
+  window.addEventListener("scroll", () => {
+    if (!pinEnded || justUnpinned) return;
+
+    const scrollTop = window.scrollY;
+    const afterPinStart = scrollingRow.offsetTop + cardHeight * 5;
+    const afterPinScroll = scrollTop - afterPinStart;
+    const postPinDistance = 1500;
+
+    const progress = Math.min(Math.max(afterPinScroll / postPinDistance, 0), 1);
+
+    if (Math.abs(progress - lastProgress) < 0.01) return;
+    lastProgress = progress;
+
+    let newIndex = 4;
+
+    if (progress > 0 && progress <= 0.49) {
+      newIndex = 5;
+    } else if (progress > 0.49) {
+      newIndex = 6;
+    }
+
+    if (newIndex !== currentIndex && newIndex <= 6) {
+      currentIndex = newIndex;
+
+      gsap.to([title, text], {
+        opacity: 0,
+        duration: 0.2,
+        onComplete: () => {
+          title.textContent = data[newIndex].title;
+          text.textContent = data[newIndex].text;
+          gsap.to([title, text], {
+            opacity: 1,
+            duration: 0.2,
+          });
+        },
+      });
+
+      cards.forEach((card, i) => {
+        const isVisible = i >= 4 && i <= 6;
+        const isCenter = i === newIndex;
+        card.classList.toggle("active", isCenter);
+        card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
+      });
+    }
+  });
+
+  cards.forEach((card, index) => {
+    card.addEventListener("click", () => {
+      if (index !== currentIndex && index <= 6) {
+        currentIndex = index;
+        if (index <= 4) {
+          updateCardsPosition(currentIndex);
+        } else {
+          cards.forEach((card, i) => {
+            const isVisible = i >= 4 && i <= 6;
+            const isCenter = i === index;
+            card.classList.toggle("active", isCenter);
+            card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
+          });
+          gsap.to([title, text], {
+            opacity: 0,
+            duration: 0.2,
+            onComplete: () => {
+              title.textContent = data[index].title;
+              text.textContent = data[index].text;
+              gsap.to([title, text], {
+                opacity: 1,
+                duration: 0.2,
+              });
+            },
+          });
+        }
+      }
+    });
+  });
 });
 
 document.addEventListener("DOMContentLoaded", function () {

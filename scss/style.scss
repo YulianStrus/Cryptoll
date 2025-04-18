@@ -627,32 +627,22 @@ main {
     }
 
     .cards-wrapper {
+        overflow-y: auto;
+        scroll-snap-type: y mandatory;
         display: flex;
         flex-direction: column;
         align-items: center;
-        overflow: auto;
-        // position: relative;
-        // height: calc(3 * 130px);
-        overflow-y: auto;
         position: sticky;
         top: 100px;
         height: calc(3 * 100px + 2 * 50px);
         overflow: hidden;
-        scroll-snap-type: y mandatory;
-        display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: sticky;
-    top: 100px;
-    height: calc(3 * 100px + 2 * 50px); // Висота для 3 карток + відступи
-    overflow: hidden;
     }
 
     .cards-inner {
         display: flex;
-    flex-direction: column;
-    transform: translateY(0);
-    transition: transform 0.3s ease;
+        flex-direction: column;
+        transform: translateY(0);
+        transition: transform 0.3s ease;
     }
 
     .cards-wrapper::-webkit-scrollbar {
@@ -672,13 +662,6 @@ main {
         padding: 27px 63px;
         border-radius: 25px;
         transition: opacity 0.5s, transform 0.5s;
-
-        &--empty {
-            background: none;
-            pointer-events: none;
-            opacity: 0;
-            visibility: hidden;
-        }
     }
 
     .card:last-child {
