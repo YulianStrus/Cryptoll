@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cardsInner.style.transform = "translateY(0px)";
     cards.forEach((card, i) => {
       card.classList.toggle("active", i === 0);
+      // card.style.opacity = i === 0 ? 1 : i < 3 ? 0.7 : 0.3;
     });
     title.textContent = data[0].title;
     text.textContent = data[0].text;
@@ -85,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const isVisible = i >= 4 && i <= 6;
       const isCenter = i === index;
       card.classList.toggle("active", isCenter);
+      // card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
     });
 
     gsap.to([title, text], {
@@ -113,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const isVisible = Math.abs(i - index) <= 1;
       const isCenter = i === index;
       card.classList.toggle("active", isCenter);
+      // card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
     });
 
     gsap.to([title, text], {
@@ -214,6 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const isVisible = i >= 4 && i <= 6;
         const isCenter = i === newIndex;
         card.classList.toggle("active", isCenter);
+        // card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
       });
     }
   });

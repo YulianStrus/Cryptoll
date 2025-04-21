@@ -634,6 +634,7 @@ main .main__section .main__section__container {
   width: 100%;
   margin: 0 auto;
   align-items: center;
+  padding-top: 20px;
 }
 main .main__section .title {
   display: block;
@@ -655,25 +656,25 @@ main .main__section .star--2 {
   top: 90%;
   bottom: -137.49%;
 }
-main .main__section::before {
+main .scrolling-row::before {
   content: "";
   position: absolute;
   width: 892px;
   height: 533px;
   left: 10%;
-  top: 47px;
+  top: 27px;
   transform: translateX(-50%);
   background: linear-gradient(180deg, rgba(0, 194, 255, 0) 0%, rgba(255, 41, 195, 0.8) 100%);
   filter: blur(175px);
   z-index: 0;
 }
-main .main__section::after {
+main .scrolling-row::after {
   content: "";
   position: absolute;
   width: 490px;
   height: 368px;
   left: 10%;
-  top: 247px;
+  top: 227px;
   transform: translateX(-50%);
   background: linear-gradient(180deg, rgba(24, 75, 255, 0) 0%, rgba(23, 74, 255, 0.8) 100%);
   filter: blur(100px);
