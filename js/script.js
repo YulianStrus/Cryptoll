@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   ScrollTrigger.create({
     trigger: scrollingRow,
-    start: "top top",
+    start: "center center",
     end: `+=${cardHeight * 5}`,
     pin: true,
     scrub: 1,
