@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cardsInner.style.transform = "translateY(0px)";
     cards.forEach((card, i) => {
       card.classList.toggle("active", i === 0);
-      card.style.opacity = i === 0 ? 1 : i < 3 ? 0.7 : 0.3;
     });
     title.textContent = data[0].title;
     text.textContent = data[0].text;
@@ -86,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const isVisible = i >= 4 && i <= 6;
       const isCenter = i === index;
       card.classList.toggle("active", isCenter);
-      card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
     });
 
     gsap.to([title, text], {
@@ -115,7 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const isVisible = Math.abs(i - index) <= 1;
       const isCenter = i === index;
       card.classList.toggle("active", isCenter);
-      card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
     });
 
     gsap.to([title, text], {
@@ -217,40 +214,39 @@ document.addEventListener("DOMContentLoaded", () => {
         const isVisible = i >= 4 && i <= 6;
         const isCenter = i === newIndex;
         card.classList.toggle("active", isCenter);
-        card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
       });
     }
   });
 
-  cards.forEach((card, index) => {
-    card.addEventListener("click", () => {
-      if (index !== currentIndex && index <= 6) {
-        currentIndex = index;
-        if (index <= 4) {
-          updateCardsPosition(currentIndex);
-        } else {
-          cards.forEach((card, i) => {
-            const isVisible = i >= 4 && i <= 6;
-            const isCenter = i === index;
-            card.classList.toggle("active", isCenter);
-            card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
-          });
-          gsap.to([title, text], {
-            opacity: 0,
-            duration: 0.2,
-            onComplete: () => {
-              title.textContent = data[index].title;
-              text.textContent = data[index].text;
-              gsap.to([title, text], {
-                opacity: 1,
-                duration: 0.2,
-              });
-            },
-          });
-        }
-      }
-    });
-  });
+  // cards.forEach((card, index) => {
+  //   card.addEventListener("click", () => {
+  //     if (index !== currentIndex && index <= 6) {
+  //       currentIndex = index;
+  //       if (index <= 4) {
+  //         updateCardsPosition(currentIndex);
+  //       } else {
+  //         cards.forEach((card, i) => {
+  //           const isVisible = i >= 4 && i <= 6;
+  //           const isCenter = i === index;
+  //           card.classList.toggle("active", isCenter);
+  //           card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
+  //         });
+  //         gsap.to([title, text], {
+  //           opacity: 0,
+  //           duration: 0.2,
+  //           onComplete: () => {
+  //             title.textContent = data[index].title;
+  //             text.textContent = data[index].text;
+  //             gsap.to([title, text], {
+  //               opacity: 1,
+  //               duration: 0.2,
+  //             });
+  //           },
+  //         });
+  //       }
+  //     }
+  //   });
+  // });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
