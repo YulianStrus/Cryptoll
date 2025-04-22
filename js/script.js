@@ -121,17 +121,17 @@ document.addEventListener("DOMContentLoaded", () => {
   ScrollTrigger.create({
     trigger: scrollingRow,
     start: "center center",
-    end: `+=${cardHeight * 5}`,
+    end: `+=${cardHeight * (cards.length - 3)}`,
     pin: true,
     scrub: 1,
     onUpdate: (self) => {
       if (self.progress < 1) {
         pinEnded = false;
-        const newIndex = Math.min(4, Math.floor(self.progress * 5));
-        if (newIndex !== currentIndex && newIndex >= 0 && newIndex <= 4) {
+        const newIndex = Math.min(cards.length - 3, Math.floor(self.progress * (cards.length - 3)));
+        if (newIndex !== currentIndex) {
           currentIndex = newIndex;
           updateCardsPosition(currentIndex);
-        }
+        }        
       }
     },
     onLeave: () => {
