@@ -37,34 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const scrollingRow = document.querySelector(".scrolling-row");
 
   const data = [
-    {
-      title: "1.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "1.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "2.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "2.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "3.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "3.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "4.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "4.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "5.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "5.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "6.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "6.Lörem ipsum sosm niliga syntris.",
-    },
-    {
-      title: "7.Lörem ipsum dorade boktig till geosylig postmodern.",
-      text: "7.Lörem ipsum sosm niliga syntris.",
-    },
+    { title: "1.Lörem ipsum dorade boktig till geosylig postmodern.", text: "1.Lörem ipsum sosm niliga syntris." },
+    { title: "2.Lörem ipsum dorade boktig till geosylig postmodern.", text: "2.Lörem ipsum sosm niliga syntris." },
+    { title: "3.Lörem ipsum dorade boktig till geosylig postmodern.", text: "3.Lörem ipsum sosm niliga syntris." },
+    { title: "4.Lörem ipsum dorade boktig till geosylig postmodern.", text: "4.Lörem ipsum sosm niliga syntris." },
+    { title: "5.Lörem ipsum dorade boktig till geosylig postmodern.", text: "5.Lörem ipsum sosm niliga syntris." },
+    { title: "6.Lörem ipsum dorade boktig till geosylig postmodern.", text: "6.Lörem ipsum sosm niliga syntris." },
+    { title: "7.Lörem ipsum dorade boktig till geosylig postmodern.", text: "7.Lörem ipsum sosm niliga syntris." },
   ];
 
   const cardHeight = 150;
@@ -74,49 +53,30 @@ document.addEventListener("DOMContentLoaded", () => {
     cardsInner.style.transform = "translateY(0px)";
     cards.forEach((card, i) => {
       card.classList.toggle("active", i === 0);
-      // card.style.opacity = i === 0 ? 1 : i < 3 ? 0.7 : 0.3;
     });
     title.textContent = data[0].title;
     text.textContent = data[0].text;
   }
   setInitialCards();
 
-  function updateCardsAfterPin(index) {
+  function updateCardsPosition(index) {
+    const maxOffset = -(cards.length - 3) * cardHeight;
+    const offset = Math.max(-index * cardHeight, maxOffset);
+
+    cardsInner.style.transform = `translateY(${offset}px)`;
+
     cards.forEach((card, i) => {
-      const isCenter = i === index;
-      card.classList.toggle("active", isCenter);
+      card.classList.toggle("active", i === index);
     });
-  
+
     title.textContent = data[index].title;
     text.textContent = data[index].text;
-  
+
     gsap.fromTo([title, text],
       { opacity: 0 },
       { opacity: 1, duration: 0.3 }
     );
   }
-  
-
-  function updateCardsPosition(index) {
-    const maxOffset = -(cards.length - 3) * cardHeight;
-    const offset = Math.max(-index * cardHeight, maxOffset);
-  
-    cardsInner.style.transform = `translateY(${offset}px)`;
-  
-    cards.forEach((card, i) => {
-      const isCenter = i === index;
-      card.classList.toggle("active", isCenter);
-    });
-  
-    title.textContent = data[index].title;
-    text.textContent = data[index].text;
-  }
-  
-  
-
-  let pinEnded = false;
-  let justUnpinned = false;
-  let lastProgress = 0;
 
   ScrollTrigger.create({
     trigger: scrollingRow,
@@ -125,93 +85,18 @@ document.addEventListener("DOMContentLoaded", () => {
     pin: true,
     scrub: 1,
     onUpdate: (self) => {
-      if (self.progress < 1) {
-        pinEnded = false;
-        const newIndex = Math.min(cards.length - 3, Math.floor(self.progress * (cards.length - 3)));
-        if (newIndex !== currentIndex) {
-          currentIndex = newIndex;
-          updateCardsPosition(currentIndex);
-        }        
-      }
-    },
-    onLeave: () => {
-      pinEnded = true;
-      justUnpinned = true;
-      currentIndex = 4;
-      lastProgress = 0;
-
-      gsap.to(cardsInner, {
-        y: -cardHeight * 4,
-        duration: 0.1,
-        onComplete: () => {
-          updateCardsAfterPin(4);
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              justUnpinned = false;
-            });
-          });
-        },
-      });
-    },
-    onEnterBack: () => {
-      pinEnded = false;
-    },
-  });
-
-  let lastIndex = -1;
-
-  window.addEventListener("scroll", () => {
-    if (!pinEnded) return;
+      // Тут ключове: множимо прогрес на (cards.length - 1)
+      const newIndex = Math.min(cards.length - 1, Math.round(self.progress * (cards.length - 1)));
   
-    const rect = scrollingRow.getBoundingClientRect();
-    const distanceFromTop = rect.top;
-  
-  
-    if (distanceFromTop <= 150 && distanceFromTop > -0) {
-      if (lastIndex !== 5) {
-        updateCardsPosition(5);
-        lastIndex = 5;
-      }
-    } else if (distanceFromTop <= -0) {
-      if (lastIndex !== 6) {
-        updateCardsPosition(6);
-        lastIndex = 6;
+      if (newIndex !== currentIndex) {
+        currentIndex = newIndex;
+        updateCardsPosition(currentIndex);
       }
     }
   });
   
-
-
-  // cards.forEach((card, index) => {
-  //   card.addEventListener("click", () => {
-  //     if (index !== currentIndex && index <= 6) {
-  //       currentIndex = index;
-  //       if (index <= 4) {
-  //         updateCardsPosition(currentIndex);
-  //       } else {
-  //         cards.forEach((card, i) => {
-  //           const isVisible = i >= 4 && i <= 6;
-  //           const isCenter = i === index;
-  //           card.classList.toggle("active", isCenter);
-  //           card.style.opacity = isVisible ? (isCenter ? 1 : 0.7) : 0.3;
-  //         });
-  //         gsap.to([title, text], {
-  //           opacity: 0,
-  //           duration: 0.2,
-  //           onComplete: () => {
-  //             title.textContent = data[index].title;
-  //             text.textContent = data[index].text;
-  //             gsap.to([title, text], {
-  //               opacity: 1,
-  //               duration: 0.2,
-  //             });
-  //           },
-  //         });
-  //       }
-  //     }
-  //   });
-  // });
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const moduleHeaders = document.querySelectorAll(".module-header");
